@@ -1,3 +1,6 @@
-theme: jekyll-theme-minimal
 title: Martin Schwartz's homepage
+logo: /assets/img/Photo_identite_2023.png
 description: Keep an eye on my project updates!
+show_downloads: true
+google_analytics:
+theme: jekyll-theme-minimal
