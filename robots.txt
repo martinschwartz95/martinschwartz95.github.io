@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://martinschwartz95.github.io/sitemap.xml
