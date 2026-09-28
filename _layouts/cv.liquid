@@ -1,0 +1,69 @@
+---
+layout: default
+---
+{%- comment -%}
+  Custom CV layout (replaces the al_folio_cv plugin rendering). Reads _data/cv.yml
+  and renders each experience/education entry on a SINGLE line:
+  [year badge] role, organisation ............ [location].
+  Highlights / area appear indented below. Talks etc. use label + details.
+{%- endcomment -%}
+{% assign cv = site.data.cv.cv %}
+<div class="post cv">
+  <header class="post-header">
+    <h1 class="post-title">{{ cv.name }}</h1>
+    {% if cv.label %}<p class="cv-tagline">{{ cv.label }}</p>{% endif %}
+  </header>
+
+  <article>
+    <p class="cv-contact">
+      {% if cv.email %}<a href="mailto:{{ cv.email }}">{{ cv.email }}</a>{% endif %}
+      {% if cv.location %} &middot; {{ cv.location }}{% endif %}
+      {% for s in cv.social_networks %}
+        {% if s.network == 'GoogleScholar' %} &middot; <a href="https://scholar.google.com/citations?user={{ s.username }}" target="_blank" rel="noopener"><i class="ai ai-google-scholar"></i> Google Scholar</a>{% endif %}
+        {% if s.network == 'ORCID' %} &middot; <a href="https://orcid.org/{{ s.username }}" target="_blank" rel="noopener"><i class="ai ai-orcid"></i> ORCID</a>{% endif %}
+      {% endfor %}
+    </p>
+
+    {% if cv.summary %}<p class="cv-summary">{{ cv.summary }}</p>{% endif %}
+
+    {% for section in cv.sections %}
+      {% assign sname = section[0] %}
+      {% assign entries = section[1] %}
+      <h2 class="cv-section">{{ sname }}</h2>
+      <ul class="cv-list">
+        {% for e in entries %}
+          {% assign org = e.company | default: e.institution %}
+          {% if org %}
+            {% assign role = e.position | default: e.studyType %}
+            {% assign ys = e.start_date | append: '' | slice: 0, 4 %}
+            {% assign ye = '' %}
+            {% if e.end_date %}
+              {% assign ye_raw = e.end_date | append: '' %}
+              {% if ye_raw == 'Present' %}{% assign ye = 'Present' %}{% else %}{% assign ye = ye_raw | slice: 0, 4 %}{% endif %}
+            {% endif %}
+            <li class="cv-entry">
+              <span class="cv-year">{{ ys }}{% if ye != '' and ye != ys %}&ndash;{{ ye }}{% endif %}</span>
+              <span class="cv-role">{% if role %}<strong>{{ role }}</strong>{% endif %}{% if org %}, {{ org }}{% endif %}</span>
+              {% if e.location %}<span class="cv-loc"><i class="fa-solid fa-location-dot"></i> {{ e.location }}</span>{% endif %}
+              {% if e.area or e.highlights %}
+                <div class="cv-detail">
+                  {% if e.area %}<div class="cv-area">{{ e.area }}</div>{% endif %}
+                  {% if e.highlights %}
+                    <ul>
+                      {% for h in e.highlights %}<li>{{ h | markdownify | remove: '<p>' | remove: '</p>' }}</li>{% endfor %}
+                    </ul>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </li>
+          {% else %}
+            <li class="cv-entry cv-oneline">
+              {% if e.label %}<span class="cv-year">{{ e.label }}</span>{% endif %}
+              <span class="cv-role">{{ e.details | markdownify | remove: '<p>' | remove: '</p>' }}</span>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endfor %}
+  </article>
+</div>

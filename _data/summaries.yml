@@ -1,0 +1,193 @@
+# Plain-language "In brief" summaries, keyed by the BibTeX citation key.
+# First person, general (non-specialist) audience, 2-3 sentences, NO em-dashes.
+# Naming: name the first author; "colleagues from <institution>" for the others;
+# when Martin is first author, "my colleagues".
+# NOTE: please double-check the affiliations I attributed to first authors.
+
+schwartzFORMSpoTRevealingFinescale2026: >
+  Today's large-scale forest-monitoring systems work at 10 to 30 metres,
+  too coarse to see individual trees, so they miss many small disturbances.
+  My colleagues and I built FORMSpoT, a decade-long (2014 to 2024) map of
+  French forest canopy height at 1.5 metre resolution from SPOT satellites,
+  together with yearly maps of where trees were lost. This lets us detect
+  forest disturbances tree by tree across a whole country.
+
+schwartzRetrievingYearlyForest2025: >
+  Existing satellite maps of forests are single snapshots, so they cannot
+  show how a forest changes from one year to the next. My colleagues and I
+  trained an AI model on Sentinel-1, Sentinel-2 and GEDI satellite data to
+  produce yearly maps of the height, volume and biomass of France's forests
+  from 2018 to 2024, the first time forest growth has been tracked at the
+  scale of individual stands from space alone. This opens the door to
+  measuring how much carbon French forests absorb each year.
+
+schwartzHighresolutionCanopyHeight2024: >
+  European forests are divided into small stands, so you need very detailed
+  maps to tell them apart. Focusing on the Landes de Gascogne, France's huge
+  maritime pine plantation, my colleagues and I trained a deep-learning model
+  on Sentinel-1 and Sentinel-2 images to map tree height at 10 metre
+  resolution. This was an early proof that combining these satellites with AI
+  can measure forest height accurately over a whole region.
+
+schwartzFORMSForestMultiple2023a: >
+  Forests store carbon, but France's are split into many small, privately
+  owned parcels that are hard to monitor. My colleagues and I used a
+  deep-learning model fed with Sentinel-1, Sentinel-2 and GEDI satellite data
+  to map the height, wood volume and biomass of French forests at 10 to 30
+  metre resolution. These maps, which we call FORMS, give a detailed
+  nationwide picture to support forest management and carbon accounting.
+
+schwartzMappingForestHeight2023: >
+  This is my PhD thesis, which ties together much of the work here. In it I
+  developed methods that combine radar, optical and LiDAR satellite data with
+  deep learning to map the height and biomass of French forests at high
+  resolution, and applied them to questions such as forest growth and fire
+  damage. It lays the groundwork for monitoring French forest carbon from
+  space.
+
+valletHighresolutionDataReveal2023: >
+  France's 2022 summer brought an exceptional fire season, with flames
+  reaching temperate and Atlantic pine forests that rarely burn. Using
+  high-resolution (10 m) satellite images, Lilian Vallet and I mapped where
+  forests burned and how much woody biomass, and therefore carbon, was lost.
+  We found the damage was far larger than usual outside the Mediterranean, a
+  sign of how climate change is pushing fire into new regions.
+
+paulsEstimatingCanopyHeight2024a: >
+  Together with Jan Pauls and colleagues at the University of Münster, we
+  built an AI model that estimates the height of trees anywhere on Earth from
+  satellite images. Our main ideas are a training method that copes with the
+  small location errors in the reference measurements, and the use of terrain
+  data to avoid mistakes in mountainous areas. The result is a global
+  tree-height map that is noticeably more accurate than previous ones.
+
+paulsECHOSATEstimatingCanopy2026a: >
+  Global tree-height maps are usually single snapshots that cannot show
+  change over time. Jan Pauls and colleagues at the University of Münster
+  introduced ECHOSAT, a global tree-height map at 10 metre resolution that
+  stays consistent from year to year, using an AI model nudged to follow
+  realistic tree growth. This makes it possible to track both growth and
+  losses such as fires worldwide.
+
+besicRemotesensingbasedForestCanopy2025: >
+  Many groups now publish their own satellite maps of forest height, and
+  these maps often disagree. Nikola Besic and colleagues at IGN, France's
+  national forest inventory, showed that rather than picking one map you can
+  combine several with a statistical method (Bayesian model averaging) to get
+  a better estimate and, crucially, a measure of how uncertain it is. I
+  contributed one of the height models used in the comparison.
+
+pellissier-tanonCombiningSatelliteImages2024: >
+  Agnès Pellissier-Tanon and colleagues at LSCE combined satellite images
+  with France's national forest inventory field measurements to track how
+  forests grow back after disturbances such as storms or harvesting. The
+  approach follows height recovery across the whole country rather than at a
+  handful of field sites.
+
+bossyStateArtPerspectives2025: >
+  African tropical forests are vital for the climate but very hard to
+  monitor. Thomas Bossy and colleagues at LSCE reviewed how satellites
+  (optical, radar and LiDAR) can track the structure, carbon and loss of
+  these forests, and set out what is still missing. I took part in this
+  collective perspective.
+
+suCanopyHeightBiomass2025: >
+  Yang Su and colleagues at LSCE mapped the height and above-ground biomass
+  of the forests of the Iberian Peninsula (Spain and Portugal) at high
+  resolution, using Sentinel-1, Sentinel-2 and LiDAR data with deep learning.
+  The resulting maps help track carbon stocks and support forest management
+  across the region.
+
+suFusedCanopyHeight2025: >
+  Yang Su and colleagues at LSCE built a two-decade record (2004 to 2024) of
+  forest canopy height across Italy at 30 metre resolution, blending Landsat
+  satellite images with airborne and spaceborne LiDAR through deep learning
+  and Bayesian averaging. Long time series like this show how forests have
+  grown and changed over twenty years.
+
+damicoGEDISentinelData2025: >
+  Poplar plantations scattered across farmland store carbon and supply
+  timber, but they change fast and are hard to keep track of. Giovanni
+  D'Amico and colleagues at the University of Florence combined GEDI LiDAR
+  and Sentinel satellite data to estimate the height and wood stocks of these
+  agroforestry trees in Italy. I helped adapt the height-mapping methods to
+  this agricultural setting.
+
+Fogel_2025_CVPR: >
+  Fajwel Fogel and colleagues released Open-Canopy, a very-high-resolution
+  open benchmark for forest monitoring, so that different research teams can
+  train and fairly compare their canopy-height and change-detection models on
+  the same data. Shared benchmarks like this speed up progress across the
+  field.
+
+fayadDUNIAPixelSizedEmbeddings2025: >
+  Ibrahim Fayad and colleagues at LSCE developed DUNIA, an AI method that
+  learns a compact "fingerprint" for every pixel of a satellite image by
+  aligning it with LiDAR data. Once learned, these fingerprints can tackle
+  many environmental tasks, from mapping canopy height to classifying crops,
+  often with very little extra training data.
+
+fayadHyTeCHybridVision2024: >
+  Ibrahim Fayad and colleagues at LSCE developed Hy-TeC, a hybrid
+  vision-transformer AI model that maps forest canopy height at high
+  resolution over large areas from satellite data. It was one of the steps
+  toward the accurate, wall-to-wall height maps used elsewhere in my work.
+
+wanSatellitebasedMappingAnnual2025: >
+  Mapping the tall, dense forests of tropical Africa from space is
+  notoriously difficult because the satellite signals saturate. Liang Wan and
+  colleagues at LSCE trained a deep-learning model to produce the first
+  annual maps (2019 to 2022) of canopy height and biomass for these forests
+  at 10 metre resolution. I contributed to the satellite height-mapping
+  approach behind them.
+
+boudrasSERAHNativeSentinel2025: >
+  Freely available satellites such as Sentinel are limited to about 10 metre
+  detail, which can blur individual trees. Thomas Boudras and colleagues at
+  LSCE built SERA-H, a model that combines image super-resolution with
+  time-series data to map canopy height in finer detail than the raw
+  satellite images allow. I co-supervised and contributed to this work.
+
+ciaisOutlookRapidDecline2026: >
+  Philippe Ciais and colleagues at LSCE set out why the amount of carbon
+  absorbed by French forests is falling rapidly, driven by ageing forests,
+  droughts and disturbances, and argue for the better monitoring needed to
+  report these changes reliably.
+
+mosigSubpixelMappingDisturbance2026: >
+  Most satellite products can only flag whole pixels as "forest lost",
+  missing the early stages where just a few trees are dying. Clemens Mosig
+  and colleagues at Leipzig University developed a method to estimate, within
+  each Sentinel-2 pixel, the fraction covered by dead or living tree crowns,
+  revealing fine-scale forest decline around the globe. I contributed to this
+  collaborative effort.
+
+lukesIntegratingGlobalCanopy2026: >
+  Ukraine's forests cannot be surveyed on the ground during the war, so
+  satellites are the only option. Petr Lukeš and colleagues combined global
+  canopy-height models with multi-sensor satellite data to estimate forest
+  structure in Ukraine with an accuracy close to airborne LiDAR. This offers
+  a way to keep the national forest inventory running remotely.
+
+ritterAlarmingDeclineCarbon2026: >
+  Francois Ritter and colleagues at LSCE combined official country reports
+  with satellite maps of forest loss and biomass to project the future of
+  Europe's forest carbon sink. Their model predicts a 39% drop in the EU
+  carbon sink by 2030, driven by harvesting and natural disturbances. I
+  contributed the satellite biomass and disturbance data.
+
+oplerProtoTreeEfficientGeneralizable2026: >
+  Measuring the volume, biomass and species of individual trees usually needs
+  costly fieldwork or heavy 3D modelling. Alvin Opler and colleagues
+  developed PROTOTREE, an AI method that describes each tree by gently
+  deforming a single learnable "template" shape, giving compact and
+  interpretable descriptors that need very few labels to train. I contributed
+  to this work on individual-tree analysis.
+
+battistaImpactUAVFlight2026: >
+  Drones carrying LiDAR can measure individual trees, but the results depend
+  on how the drone is flown. Clément Battista and colleagues systematically
+  tested how flight altitude, speed and other settings affect measurements of
+  tree height and trunk size in a poplar plantation in south-western France.
+  The findings help set good practice for drone-based forest surveys, and I
+  contributed to the study.

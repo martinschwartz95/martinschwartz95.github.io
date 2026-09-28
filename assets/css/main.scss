@@ -1,0 +1,232 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+@charset "utf-8";
+
+/* Built-in Sass modules you'll likely use across partials */
+@use "sass:math";
+@use "sass:string";
+
+/* Configure your design tokens BEFORE loading any of your partials. */
+@use "variables" with (
+  $max-content-width: {{ site.max_width | default:  "930px" }}
+);
+
+@use "themes";
+@use "layout";
+
+// Core styles organized by usage
+@use "typography";
+@use "navbar";
+@use "footer";
+@use "blog";
+@use "publications";
+@use "components";
+@use "utilities";
+
+// Other specialized styles
+@use "tabs";
+@use "teachings";
+@use "typograms";
+
+/* ---------------------------------------------------------------------------
+   Custom styles (added on top of the al-folio theme)
+   --------------------------------------------------------------------------- */
+
+/* Highlight the journal / venue name in the publication list with a coloured
+   background badge. In al-folio the venue is rendered as the <em> inside
+   .periodical, so we style just that element. */
+.publications .periodical em,
+#selected_papers .periodical em,
+.periodical em {
+  background-color: #004c38; /* green highlight for the journal / venue name */
+  color: #ffffff;
+  font-style: normal;
+  padding: 0.05em 0.4em;
+  border-radius: 0.35em;
+  white-space: nowrap;
+}
+
+/* Preprints (arXiv / EarthArXiv / SSRN) get an orange badge instead of green,
+   to signal that the paper is not yet published. */
+.publications .periodical em.preprint,
+.periodical em.preprint {
+  background-color: #d9822b;
+}
+
+/* Month + year in the publication list: blue badge. */
+.periodical .pubdate {
+  background-color: #3f81ed;
+  color: #ffffff;
+  padding: 0.05em 0.4em;
+  border-radius: 0.35em;
+  white-space: nowrap;
+}
+
+/* "In brief" plain-language summary panel. */
+.inbrief-panel {
+  display: none;
+  margin-top: 0.55rem;
+  padding: 0.6rem 0.85rem;
+  border-left: 3px solid var(--global-theme-color);
+  background-color: var(--global-code-bg-color);
+  border-radius: 0.25rem;
+  font-size: 0.95rem;
+}
+.inbrief-panel.open {
+  display: block;
+}
+.inbrief-panel > :last-child {
+  margin-bottom: 0;
+}
+
+/* "First-author papers only" filter button. */
+.pub-filter {
+  margin: 0.3rem 0 1.4rem;
+}
+#firstauthor-toggle {
+  border: 1px solid var(--global-theme-color);
+  color: var(--global-theme-color);
+  background: transparent;
+  border-radius: 0.4em;
+  padding: 0.3em 0.9em;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+#firstauthor-toggle:hover {
+  background: var(--global-theme-color);
+  color: #fff;
+}
+#firstauthor-toggle.active {
+  background: var(--global-theme-color);
+  color: #fff;
+}
+
+/* Equal-contribution (co-first author) star + note. */
+.cofirst-star {
+  color: #d9a300;
+  font-size: 0.85em;
+  margin-left: 0.05em;
+}
+.cofirst-note {
+  color: var(--global-text-color-light);
+  font-size: 0.82em;
+  margin-left: 0.4em;
+  white-space: nowrap;
+}
+
+/* PhD dissertation: shiny gold badge (overrides the green .periodical em). */
+.publications .periodical em.phd-badge,
+.periodical em.phd-badge {
+  color: #4a3800 !important;
+  background: linear-gradient(100deg, #b8860b 0%, #ffd85a 20%, #fff6c4 35%, #ffd85a 50%, #b8860b 70%, #ffd85a 85%, #fff6c4 100%);
+  background-size: 250% 100%;
+  animation: phd-shine 4s linear infinite;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+  box-shadow: 0 1px 3px rgba(184, 134, 11, 0.45);
+}
+@keyframes phd-shine {
+  0% { background-position: 130% 0; }
+  100% { background-position: -130% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .periodical em.phd-badge { animation: none; }
+}
+
+/* Shrink the social icons (email, Scholar, ORCID, ...) under the profile.
+   Theme default is 4rem; halve it to 2rem. */
+.social .contact-icons {
+  font-size: 2rem;
+}
+
+/* Green accent for links etc. (instead of the default purple).
+   Light mode uses a lighter green than the #004C38 publication badge so links
+   stay clearly visible on white; dark mode keeps a light green for contrast. */
+:root {
+  --global-theme-color: #0f8b60;
+  --global-hover-color: #0f8b60;
+}
+html[data-theme="dark"] {
+  --global-theme-color: #3aa981;
+  --global-hover-color: #3aa981;
+}
+
+/* ---- Custom CV layout (single line: year + role/org + location) ---- */
+.cv .cv-tagline {
+  color: var(--global-text-color-light);
+  font-size: 1.1rem;
+  margin-top: -0.4rem;
+}
+.cv .cv-contact {
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+.cv .cv-summary {
+  margin-bottom: 1.5rem;
+}
+.cv .cv-section {
+  margin: 1.6rem 0 0.6rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid var(--global-divider-color);
+}
+.cv .cv-list {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+.cv .cv-entry {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.7rem;
+  row-gap: 0.15rem;
+  margin-bottom: 0.9rem;
+}
+/* The year badge: same green as the publication highlight. */
+.cv .cv-year {
+  flex: 0 0 auto;
+  min-width: 5.6em;
+  text-align: center;
+  background-color: #004c38;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  padding: 0.15em 0.5em;
+  border-radius: 0.35em;
+  white-space: nowrap;
+}
+.cv .cv-role {
+  flex: 1 1 60%;
+}
+.cv .cv-loc {
+  flex: 0 0 auto;
+  margin-left: auto;
+  color: var(--global-text-color-light);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+.cv .cv-loc .iconlocation,
+.cv .cv-loc i {
+  margin-right: 0.2em;
+}
+/* Details (area + highlights) wrap to a full-width line, indented under the badge. */
+.cv .cv-detail {
+  flex: 0 0 100%;
+  margin-left: 6.3em;
+  margin-top: 0.15rem;
+  color: var(--global-text-color);
+}
+.cv .cv-detail .cv-area {
+  font-style: italic;
+  color: var(--global-text-color-light);
+}
+.cv .cv-detail ul {
+  margin: 0.15rem 0 0;
+  padding-left: 1.1em;
+}
+@media (max-width: 576px) {
+  .cv .cv-detail { margin-left: 0; }
+  .cv .cv-loc { margin-left: 0; }
+}

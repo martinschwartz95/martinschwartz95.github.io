@@ -1,91 +1,199 @@
-# Contributing to the Minimal theme
+# Contributing to al-folio
 
-Hi there! We're thrilled that you'd like to contribute to the Minimal theme. Your help is essential for keeping it great.
+Thank you for considering contributing to al-folio!
 
-the Minimal theme is an open source project supported by the efforts of an entire community and built one contribution at a time by users like you. We'd love for you to get involved. Whatever your level of skill or however much time you can give, your contribution is greatly appreciated. There are many ways to contribute, from writing tutorials or blog posts, improving the documentation, submitting bug reports and feature requests, helping other users by commenting on issues, or writing code which can be incorporated into the Minimal theme itself.
+## Pull Requests
 
-Following these guidelines helps to communicate that you respect the time of the developers managing and developing this open source project. In return, they should reciprocate that respect in addressing your issue, assessing changes, and helping you finalize your pull requests.
+We welcome your pull requests (PRs).
+For minor fixes (e.g., documentation improvements), feel free to submit a PR directly.
+If you would like to implement a new feature or a bug, please make sure you (or someone else) has opened an appropriate issue first; in your PR, please mention the issue it addresses.
 
+Note that since [#2048](https://github.com/alshedivat/al-folio/pull/2048) al-folio uses the [prettier formatter](https://prettier.io/) for its code, meaning all new submitted code must conform to its standard. If you don't have `prettier` installed for your setup and the `prettier` code check fails when submitting a PR, you can check the referred failed action in our repo. In that action there will be an artifact with an HTML diff showing the needed changes.
 
-## Looking for support?
+## Adding your site to the showcase
 
-We'd love to help. Check out [the support guidelines](SUPPORT.md).
+**Please do not open a pull request to add your site to the showcase list.** We have retired that process. Instead, post a request in the _Showcase_ category of [GitHub Discussions](https://github.com/alshedivat/al-folio/discussions) with a link to your site and the group it belongs in (Academics, Labs, Courses, or Conferences & workshops). Requests are reviewed and added to [`docs/SHOWCASE.md`](SHOWCASE.md) in batches, so it may take a little while before your entry appears.
 
-## How to report a bug
+## Repository Routing (v1.x)
 
-Think you found a bug? Please check [the list of open issues](https://github.com/pages-themes/minimal/issues) to see if your bug has already been reported. If it hasn't please [submit a new issue](https://github.com/pages-themes/minimal/issues/new).
+`al-folio` is a starter in `v1.x`. Before opening a PR, route your change to the owning repo:
 
-Here are a few tips for writing *great* bug reports:
+- `al-folio` (this repo): starter wiring (`Gemfile`, `_config.yml`), example/demo content, documentation, visual tests, cross-gem integration tests.
+- `al-folio-core` and other `al-*` gem repos: component runtime behavior, layouts/includes/style primitives, feature logic, unit/component tests.
+- If a feature does not fit an existing plugin, propose a new standalone plugin first, then implement there.
 
-* Describe the specific problem (e.g., "widget doesn't turn clockwise" versus "getting an error")
-* Include the steps to reproduce the bug, what you expected to happen, and what happened instead
-* Check that you are using the latest version of the project and its dependencies
-* Include what version of the project your using, as well as any relevant dependencies
-* Only include one bug per issue. If you have discovered two bugs, please file two issues
-* Even if you don't know how to fix the bug, including a failing test may help others track it down
+For the change-type routing table, see [`AGENTS.md`](../AGENTS.md#route-your-change). For the authoritative area-to-gem mapping, see [`BOUNDARIES.md`](BOUNDARIES.md). For how the starter and gems connect at runtime — including the failure modes that produce no error message — see [`ARCHITECTURE.md`](ARCHITECTURE.md).
 
-**If you find a security vulnerability, do not open an issue. Please email security@github.com instead.**
+## Plugin Naming Convention (v1.x)
 
-## How to suggest a feature or enhancement
+We use a hybrid naming convention:
 
-If you find yourself wishing for a feature that doesn't exist in the Minimal theme, you are probably not alone. There are bound to be others out there with similar needs. Many of the features that the Minimal theme has today have been added because our users saw the need.
+- Theme-coupled plugins: repo `al-folio-<feature>`, gem/plugin id `al_folio_<feature>`.
+- Reusable plugins: repo `al-<feature>` or neutral name, gem/plugin id aligned with plugin namespace.
+- Third-party non-`al-*` plugins are allowed in the ecosystem and can be featured.
 
-Feature requests are welcome. But take a moment to find out whether your idea fits with the scope and goals of the project. It's up to you to make a strong case to convince the project's developers of the merits of this feature. Please provide as much detail and context as possible, including describing the problem you're trying to solve.
+## Featuring Community Plugins
 
-[Open an issue](https://github.com/pages-themes/minimal/issues/new) which describes the feature you would like to see, why you want it, how it should work, etc.
+You can publish and own your own plugin, then propose it for featuring in `al-folio`.
 
+1. Open a **Plugin Feature Proposal** issue in this repo.
+2. Share plugin metadata (repo URL, gem name, plugin id, compatibility, owner, demo path).
+3. Open a PR to this starter updating:
+   - [`_data/featured_plugins.yml`](../_data/featured_plugins.yml)
+   - optional demo content page/post under `_pages/` or `_posts/`
+4. If requesting **bundled** status (not only featured listing), include starter wiring updates in:
+   - [Gemfile](../Gemfile)
+   - [\_config.yml](../_config.yml)
 
+Featuring and bundling are separate decisions:
 
-## Your first contribution
+- **Featured-only**: catalog/docs entry and demo.
+- **Bundled**: also included in starter dependencies/plugin list by maintainers.
 
-We'd love for you to contribute to the project. Unsure where to begin contributing to the Minimal theme? You can start by looking through these "good first issue" and "help wanted" issues:
+Plugin patch releases are published from their owning repositories. Update this starter only when a plugin release changes default wiring, dependency pins, documentation, examples, integration tests, visual baselines, or Docker/runtime release artifacts.
 
-* [Good first issues](https://github.com/pages-themes/minimal/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) - issues which should only require a few lines of code and a test or two
-* [Help wanted issues](https://github.com/pages-themes/minimal/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) - issues which may be a bit more involved, but are specifically seeking community contributions
+## Test Ownership
 
-*p.s. Feel free to ask for help; everyone is a beginner at first* :smiley_cat:
+`al-folio` is a starter kit in `v1.x`. Keep tests aligned with runtime ownership:
 
-## How to propose changes
+- `al-folio`: visual regression + cross-gem integration + starter wiring contracts.
+- Gem repos (`al-folio-core`, `al-folio-distill`, `al-*`): component correctness/unit tests and asset/runtime contract checks.
 
-Here's a few general guidelines for proposing changes:
+Do not add duplicate component-level correctness tests to this starter when the component is gem-owned. See [`BOUNDARIES.md`](BOUNDARIES.md).
 
-* If you are making visual changes, include a screenshot of what the affected element looks like, both before and after.
-* Follow the [Jekyll style guide](https://ben.balter.com/jekyll-style-guide).
-* If you are changing any user-facing functionality, please be sure to update the documentation
-* Each pull request should implement **one** feature or bug fix. If you want to add or fix more than one thing, submit more than one pull request
-* Do not commit changes to files that are irrelevant to your feature or bug fix
-* Don't bump the version number in your pull request (it will be bumped prior to release)
-* Write [a good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
+## Local Validation
 
-At a high level, [the process for proposing changes](https://guides.github.com/introduction/flow/) is:
+Before opening/updating a PR in `v1.x`, run:
 
-1. [Fork](https://github.com/pages-themes/minimal/fork) and clone the project
-2. Configure and install the dependencies: `script/bootstrap`
-3. Make sure the tests pass on your machine: `script/cibuild`
-4. Create a new branch: `git checkout -b my-branch-name`
-5. Make your change, add tests, and make sure the tests still pass
-6. Push to your fork and [submit a pull request](https://github.com/pages-themes/minimal/compare)
-7. Pat your self on the back and wait for your pull request to be reviewed and merged
+```bash
+bundle install
+npm ci
+npm run lint:prettier
+npm run lint:style-contract
+bundle exec jekyll build --baseurl /al-folio
+```
 
-**Interesting in submitting your first Pull Request?** It's easy! You can learn how from this *free* series [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github)
+The `--baseurl /al-folio` flag matters: the demo site is published as a project page, and building without it produces an unstyled site with broken links.
 
-## Bootstrapping your local development environment
+If your change touches plugin wiring or feature behavior, run the integration tests it affects. All seven are gated by `unit-tests.yml`:
 
-`script/bootstrap`
+```bash
+bash test/integration_comments.sh
+bash test/integration_plugin_toggles.sh
+bash test/integration_distill.sh
+bash test/integration_bootstrap_compat.sh
+bash test/integration_upgrade_cli.sh
+bash test/integration_css_minify.sh
+bash test/integration_new_plugins.sh
+```
 
-## Running tests
+If your change touches visual tests, install Playwright browsers once and run:
 
-`script/cibuild`
+```bash
+npx playwright install chromium webkit
+npm run test:visual
+```
 
-## Publishing Gem
-In order to publish the Gem bump the version in *this file*, commit, create a tag with the new version number, and finally push the commit and tag to the repo.
+The full validated command set lives in [`AGENTS.md`](../AGENTS.md#validated-local-command-set).
 
-## Code of conduct
+## AI Agent Guidance
 
-This project is governed by [the Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
+This repository includes agent entrypoints and skills for Codex, Claude, Copilot, and similar coding agents.
 
-## Additional Resources
+### CLAUDE.md
 
-* [Contributing to Open Source on GitHub](https://guides.github.com/activities/contributing-to-open-source/)
-* [Using Pull Requests](https://help.github.com/articles/using-pull-requests/)
-* [GitHub Help](https://help.github.com)
+The `CLAUDE.md` file serves as an entry point for Claude (Anthropic's AI assistant) when working with this repository. It opens with Claude's `@path/to/import` syntax (as described in [Claude's best practices](https://code.claude.com/docs/en/best-practices#write-an-effective-claude-md)) to pull in `AGENTS.md`, so the ecosystem-neutral rules stay in one place:
+
+```
+@AGENTS.md
+```
+
+Beyond that import, `CLAUDE.md` carries Claude-specific and longer-form guidance that does not belong in the short entry point — the daily dev loop, the Docker serving model, and the CI/style-contract details. Ecosystem-neutral rules that every agent needs belong in `AGENTS.md` or [`ARCHITECTURE.md`](ARCHITECTURE.md); keep `CLAUDE.md` for the rest.
+
+### Agent Skills
+
+Agents can use repo-local skills for common v1 workflows:
+
+- `.agents/skills/al-folio-bootstrap/SKILL.md` for new site setup and safe starter customization.
+- `.agents/skills/al-folio-v1-migration/SKILL.md` for customized fork migration and override drift auditing.
+
+The canonical skill files live in `.agents/skills/`. `.codex/skills/` and `.claude/skills/` are symlinks for agent-specific discovery.
+
+### Customization Agent
+
+The **Customization Agent** (`.github/agents/customize.agent.md`) helps users customize their al-folio website. It:
+
+- Guides you through modifying configuration files, adding content, and customizing the theme
+- Explains technical concepts in plain language for users without coding experience
+- Applies changes directly to your repository files
+- Provides step-by-step instructions for common customization tasks
+
+To use the customization agent, you need to have [GitHub Copilot](https://github.com/features/copilot) enabled in your repository. The agent can help with tasks like changing site information, updating your CV, adding publications, creating blog posts, customizing theme colors, and more.
+
+### Documentation Agent
+
+The **Documentation Agent** (`.github/agents/docs.agent.md`) maintains the project documentation. It:
+
+- Updates and maintains documentation files (`README.md`, `docs/README.md`, `docs/INSTALL.md`, `docs/CUSTOMIZE.md`, `docs/FAQ.md`, `docs/CONTRIBUTING.md`)
+- Keeps documentation in sync with code changes
+- Writes clear, concise documentation for users without technical backgrounds
+- Follows documentation standards and best practices
+
+The documentation agent is primarily intended for maintainers and contributors who are updating the project documentation.
+
+### Custom Instruction Files
+
+To enhance GitHub Copilot's effectiveness when working with specific file types, this repository includes custom instruction files in `.github/instructions/`:
+
+- **`.github/copilot-instructions.md`** – Copilot entry point. It points at [`AGENTS.md`](../AGENTS.md) (the authoritative agent guide) and lists the Copilot-specific paths and CI expectations, rather than duplicating the shared rules
+- **`.github/instructions/liquid-templates.instructions.md`** – Guidance for modifying Liquid template files (`.liquid`)
+- **`.github/instructions/yaml-configuration.instructions.md`** – Guidance for configuration and data files (`_config.yml`, `_data/**/*.yml`)
+- **`.github/instructions/bibtex-bibliography.instructions.md`** – Guidance for bibliography files (`.bib`, `_bibliography/**`)
+- **`.github/instructions/markdown-content.instructions.md`** – Guidance for content files across collections (`_books/`, `_news/`, `_pages/`, `_posts/`, `_projects/`, `_teachings/`)
+- **`.github/instructions/javascript-scripts.instructions.md`** – Guidance for starter JavaScript and runtime script snippets
+
+These files help Copilot agents understand project conventions, build requirements, and development workflows without requiring codebase exploration.
+
+### Copilot Environment Setup
+
+A GitHub Actions workflow (`.github/workflows/copilot-setup-steps.yml`) automatically configures the Copilot environment with required dependencies (Ruby 3.3.5, Python 3.13, Node.js, ImageMagick, nbconvert) before agent execution.
+
+### Important: Verify Agent Output
+
+While these agents are designed to assist you, **they can make mistakes or produce incorrect information**. Always review and verify the output before applying it to your repository:
+
+- **Review code and configuration changes** – Check that suggested modifications are correct and fit your needs
+- **Test changes locally** – Before pushing to GitHub, test the changes locally (using Docker or native setup)
+- **Verify syntax** – Ensure any YAML, Markdown, or configuration files have correct syntax
+- **Check documentation** – If the agent generates documentation, review it for accuracy and clarity
+- **Don't blindly apply changes** – Understand what changes are being made and why
+- **Run your site** – After applying changes, run your site locally and verify everything works as expected
+
+**Example:** If an agent suggests a BibTeX entry or configuration change, verify that the syntax is correct and matches the existing style in your repository before committing.
+
+### How to Enable Agents
+
+GitHub Copilot agents are available to users with GitHub Copilot subscriptions. To use these agents:
+
+1. Ensure you have [GitHub Copilot](https://github.com/features/copilot) enabled for your account
+2. Open your repository in an editor with GitHub Copilot support (such as VS Code with the GitHub Copilot extension)
+3. The agents will be automatically available based on the configuration files in `.github/agents/`. For more information, see [Using custom agents in your IDE](https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/use-copilot-agents/coding-agent/create-custom-agents#using-custom-agents-in-your-ide).
+
+For more information about GitHub Copilot agents and how to use them, see the [GitHub Copilot documentation](https://docs.github.com/en/copilot).
+
+## Issues
+
+We use GitHub issues to track bugs and feature requests.
+Before submitting an issue, please make sure:
+
+1. You have read [the FAQ section](FAQ.md) of the README and your question is NOT addressed there.
+2. You have done your best to ensure that your issue is NOT a duplicate of one of [the previous issues](https://github.com/alshedivat/al-folio/issues).
+3. Your issue is either a bug (unexpected/undesirable behavior) or a feature request.
+   If it is just a question, please ask it in the [Discussions](https://github.com/alshedivat/al-folio/discussions) forum.
+
+When submitting an issue, please make sure to use the appropriate template.
+
+## License
+
+By contributing to al-folio, you agree that your contributions will be licensed
+under the LICENSE file in the root directory of the source tree.
