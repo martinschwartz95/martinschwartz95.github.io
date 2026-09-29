@@ -80,11 +80,20 @@
   margin-bottom: 0;
 }
 
-/* "First-author papers only" filter button. */
+/* Publication list: smaller author names. */
+.publications .author {
+  font-size: 0.82rem;
+}
+
+/* Publication filter / view buttons. */
 .pub-filter {
   margin: 0.3rem 0 1.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
-#firstauthor-toggle {
+#firstauthor-toggle,
+#compact-toggle {
   border: 1px solid var(--global-theme-color);
   color: var(--global-theme-color);
   background: transparent;
@@ -94,13 +103,57 @@
   cursor: pointer;
   transition: background 0.15s, color 0.15s;
 }
-#firstauthor-toggle:hover {
+#firstauthor-toggle:hover,
+#compact-toggle:hover,
+#firstauthor-toggle.active,
+#compact-toggle.active {
   background: var(--global-theme-color);
   color: #fff;
 }
-#firstauthor-toggle.active {
-  background: var(--global-theme-color);
-  color: #fff;
+
+/* Compact view: hide thumbnails, shrink fonts, tighten spacing so many
+   publications fit on one screen. Toggled by #compact-toggle. */
+.publications.compact .abbr {
+  display: none;
+}
+.publications.compact .col-sm-9 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+.publications.compact h2.bibliography {
+  font-size: 1.15rem;
+  margin: 0.7rem 0 0.3rem;
+}
+.publications.compact .title {
+  font-size: 0.9rem;
+  line-height: 1.25;
+}
+.publications.compact .author {
+  font-size: 0.76rem;
+}
+.publications.compact .periodical {
+  font-size: 0.76rem;
+}
+.publications.compact ol.bibliography li {
+  margin-bottom: 0.55rem;
+}
+/* In compact view the buttons are hidden; clicking a title reveals them. */
+.publications.compact .links {
+  display: none;
+  margin-top: 0.2rem;
+}
+.publications.compact .row.links-open .links {
+  display: block;
+}
+.publications.compact .links .btn {
+  font-size: 0.72rem;
+  padding: 0 0.45em;
+}
+.publications.compact .title {
+  cursor: pointer;
+}
+.publications.compact .title:hover {
+  color: var(--global-theme-color);
 }
 
 /* Equal-contribution (co-first author) star + note. */
