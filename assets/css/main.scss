@@ -63,21 +63,54 @@
   white-space: nowrap;
 }
 
-/* "In brief" plain-language summary panel. */
+/* "In brief" plain-language summary panel.
+   Collapsed by default; unfolds smoothly below the paper either after a short
+   hover delay (JS adds .hover-open) or when the "In brief" button is clicked
+   (.open). Animates via grid-template-rows so it grows to the exact content
+   height at constant speed. */
 .inbrief-panel {
-  display: none;
-  margin-top: 0.55rem;
-  padding: 0.6rem 0.85rem;
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  margin-top: 0;
+  padding: 0 0.85rem;
   border-left: 3px solid var(--global-theme-color);
   background-color: var(--global-code-bg-color);
   border-radius: 0.25rem;
-  font-size: 0.95rem;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  transition:
+    grid-template-rows 0.4s linear,
+    opacity 0.4s linear,
+    margin-top 0.4s linear,
+    padding 0.4s linear;
 }
+.inbrief-panel > .inbrief-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+.inbrief-panel.hover-open,
 .inbrief-panel.open {
-  display: block;
+  grid-template-rows: 1fr;
+  opacity: 1;
+  margin-top: 0.5rem;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
 }
-.inbrief-panel > :last-child {
+.inbrief-inner > :last-child {
   margin-bottom: 0;
+}
+
+/* Show the abstract / In brief / bibtex buttons as "active" while their content
+   is open (uses :has, so no extra JS). In hover mode the In brief button lights
+   up while the mouse is over the paper, tying the drop-down to that button. */
+.publications .row:has(.abstract.hidden.open) a.abstract,
+.publications .row:has(.bibtex.hidden.open) a.bibtex,
+.publications .row:has(.inbrief-panel.open) a.inbrief,
+.publications:not(.compact) ol.bibliography > li:hover a.inbrief {
+  background-color: var(--global-theme-color) !important;
+  border-color: var(--global-theme-color) !important;
+  color: #ffffff !important;
 }
 
 /* Publication list: smaller author names. */
@@ -92,8 +125,7 @@
   flex-wrap: wrap;
   gap: 0.5rem;
 }
-#firstauthor-toggle,
-#compact-toggle {
+.pub-filter button {
   border: 1px solid var(--global-theme-color);
   color: var(--global-theme-color);
   background: transparent;
@@ -103,10 +135,8 @@
   cursor: pointer;
   transition: background 0.15s, color 0.15s;
 }
-#firstauthor-toggle:hover,
-#compact-toggle:hover,
-#firstauthor-toggle.active,
-#compact-toggle.active {
+.pub-filter button:hover,
+.pub-filter button.active {
   background: var(--global-theme-color);
   color: #fff;
 }
@@ -146,8 +176,13 @@
   display: block;
 }
 .publications.compact .links .btn {
-  font-size: 0.72rem;
-  padding: 0 0.45em;
+  font-size: 0.68rem;
+  padding: 0 0.4em;
+}
+/* Compact: abstract / In brief drop-down text at the author font size. */
+.publications.compact .abstract.hidden,
+.publications.compact .inbrief-panel {
+  font-size: 0.76rem;
 }
 .publications.compact .title {
   cursor: pointer;

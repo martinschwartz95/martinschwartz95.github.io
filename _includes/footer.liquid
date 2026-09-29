@@ -1,7 +1,8 @@
 {%- comment -%}
-  Local override of al_folio_core's footer: the "© Copyright YYYY Name." notice
-  has been removed at the author's request (a copyright notice is not legally
-  required). The rest of the footer structure is kept unchanged.
+  Local override of al_folio_core's footer. The copyright notice was removed and
+  footer_text is empty, so to avoid an empty footer bar at the bottom of every page
+  we render the <footer> element only when there is real content (footer_text,
+  impressum, last_updated) or the newsletter is enabled. Otherwise: nothing.
 {%- endcomment -%}
 {% capture footer_contents %}
   {{ site.footer_text }}
@@ -12,25 +13,23 @@
     Last updated: {{ 'now' | date: '%B %d, %Y' }}.
   {% endif %}
 {% endcapture %}
+{% assign footer_text_stripped = footer_contents | strip_html | strip %}
 
-{% if site.footer_fixed %}
-  <footer class="fixed-bottom" role="contentinfo">
-    <div class="container mt-0">
-      {{ footer_contents }}
-    </div>
-  </footer>
-{% else %}
-  <footer class="sticky-bottom mt-5" role="contentinfo">
-    {% if site.newsletter.enabled %}
-      {% if site.plugins contains 'al_newsletter' %}
-        {% include plugins/al_newsletter_form_center.liquid %}
-      {% else %}
-        {% include newsletter.liquid %}
+{% if footer_text_stripped != "" or site.newsletter.enabled %}
+  {% if site.footer_fixed %}
+    <footer class="fixed-bottom" role="contentinfo">
+      <div class="container mt-0">{{ footer_contents }}</div>
+    </footer>
+  {% else %}
+    <footer class="sticky-bottom mt-5" role="contentinfo">
+      {% if site.newsletter.enabled %}
+        {% if site.plugins contains 'al_newsletter' %}
+          {% include plugins/al_newsletter_form_center.liquid %}
+        {% else %}
+          {% include newsletter.liquid %}
+        {% endif %}
       {% endif %}
-    {% endif %}
-
-    <div class="container">
-      {{ footer_contents }}
-    </div>
-  </footer>
+      <div class="container">{{ footer_contents }}</div>
+    </footer>
+  {% endif %}
 {% endif %}

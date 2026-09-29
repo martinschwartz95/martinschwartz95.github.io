@@ -485,7 +485,7 @@
     {%- comment -%} CUSTOM: In-brief plain-language summary panel. {%- endcomment -%}
     {% assign brief = site.data.summaries[entry.key] %}
     {% if brief %}
-      <div class="inbrief-panel">{{ brief | markdownify }}</div>
+      <div class="inbrief-panel"><div class="inbrief-inner">{{ brief | markdownify }}</div></div>
     {% endif %}
 
     {% if entry.bibtex_show %}

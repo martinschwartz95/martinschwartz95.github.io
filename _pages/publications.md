@@ -84,6 +84,23 @@ nav_order: 2
       cbtn.classList.toggle('active', on);
       cbtn.textContent = on ? 'Normal view' : 'Compact view';
     });
+    // Default behaviour: unfold a paper's summary below it once the mouse has
+    // rested on it for a moment (avoids flicker on quick pass-overs). Skipped in
+    // compact view, where summaries open via the buttons instead.
+    var HOVER_DELAY = 800; // ms
+    pubs.querySelectorAll('ol.bibliography > li').forEach(function (li) {
+      var panel = li.querySelector('.inbrief-panel');
+      if (!panel) return;
+      var timer = null;
+      li.addEventListener('mouseenter', function () {
+        if (pubs.classList.contains('compact')) return;
+        timer = setTimeout(function () { panel.classList.add('hover-open'); }, HOVER_DELAY);
+      });
+      li.addEventListener('mouseleave', function () {
+        if (timer) { clearTimeout(timer); timer = null; }
+        panel.classList.remove('hover-open');
+      });
+    });
     // In compact view, click a paper's title to reveal/hide its buttons.
     pubs.querySelectorAll('.title').forEach(function (title) {
       title.addEventListener('click', function () {
