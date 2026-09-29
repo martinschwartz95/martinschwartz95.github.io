@@ -71,7 +71,7 @@
     // summary opens via the "In brief" button instead.
     var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     if (canHover) {
-      var HOVER_DELAY = 800; // ms
+      var HOVER_DELAY = 150; // ms
       pubs.querySelectorAll('ol.bibliography > li').forEach(function (li) {
         var panel = li.querySelector('.inbrief-panel');
         if (!panel) return;
