@@ -106,11 +106,20 @@
    up while the mouse is over the paper, tying the drop-down to that button. */
 .publications .row:has(.abstract.hidden.open) a.abstract,
 .publications .row:has(.bibtex.hidden.open) a.bibtex,
-.publications .row:has(.inbrief-panel.open) a.inbrief,
-.publications:not(.compact) ol.bibliography > li:hover a.inbrief {
+.publications .row:has(.inbrief-panel.open) a.inbrief {
   background-color: var(--global-theme-color) !important;
   border-color: var(--global-theme-color) !important;
   color: #ffffff !important;
+}
+/* Highlight the In brief button while hovering a paper: only on devices that
+   actually have a hover-capable pointer (desktop). Applying :hover on touch
+   screens makes the first tap register as a hover instead of a click. */
+@media (hover: hover) and (pointer: fine) {
+  .publications:not(.compact) ol.bibliography > li:hover a.inbrief {
+    background-color: var(--global-theme-color) !important;
+    border-color: var(--global-theme-color) !important;
+    color: #ffffff !important;
+  }
 }
 
 /* Publication list: smaller author names. */
