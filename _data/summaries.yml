@@ -187,7 +187,7 @@ oplerProtoTreeEfficientGeneralizable2026: >
   tree by gently deforming a single learnable "template" shape, giving
   compact and interpretable descriptors that need very few labels to train.
 
-battistaImpactUAVFlight2026: >
+battistaImpactUAVFlight2026a: >
   Drones carrying LiDAR can measure individual trees, but the results depend
   on how the drone is flown. With Clément Battista and colleagues from CESBIO
   in Toulouse, we systematically tested how flight altitude, speed
